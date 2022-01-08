@@ -2,9 +2,10 @@ import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
-import replace from "rollup-plugin-replace"
-import babel from 'rollup-plugin-babel';
+import replace from "@rollup/plugin-replace"
+import babel from '@rollup/plugin-babel';
 import pkg from './package.json';
+
 import {
 	terser
 } from 'rollup-plugin-terser';
@@ -61,13 +62,17 @@ export default {
 			output: 'bundle.css'
 		}),
 		babel({
-			runtimeHelpers: true,
+			babelHelpers: 'runtime',
 		}),
 		// css({
 		// 	output: 'bundle.css'
 		// }),
 		replace({
-			'process.env.NODE_ENV': JSON.stringify('production'),
+			preventAssignment: true,
+			'process.env.NODE_ENV': JSON.stringify('production')
+		}),
+		commonjs({
+			include: ['node_modules/**']
 		}),
 
 		// we'll extract any component CSS out into
