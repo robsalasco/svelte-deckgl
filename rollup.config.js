@@ -86,10 +86,10 @@ export default {
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		resolve({
 			browser: true,
-			dedupe: ['svelte']
-		}),
-		commonjs({
-			include: ['node_modules/**'],
+			dedupe: ['svelte'],
+			// https://github.com/visgl/loaders.gl/issues/2000
+			mainFields: ["browser", "main"],
+			preferBuiltins: false
 		}),
 
 		// In dev mode, call `npm run start` once
